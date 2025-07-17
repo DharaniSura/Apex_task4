@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sura Dharani - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav.scrolled .nav-links a {
+            color: #333;
+        }
+
+        nav.scrolled .logo {
+            color: #667eea;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #A52A2A;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: #A52A2A;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 100px 0 50px;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        .section-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* About Section */
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            color: #A52A2A;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            color: white;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .project-card-content {
+            padding: 1.5rem;
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            color: #A52A2A;
+        }
+
+        /* Todo App Styles */
+        .todo-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            color: #A52A2A;
+        }
+
+        .todo-input-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .todo-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .todo-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+        }
+
+        .todo-text {
+            flex: 1;
+        }
+
+        .todo-delete {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .todo-delete:hover {
+            background: #ff5252;
+        }
+
+        .todo-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Product Filter Styles */
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-select option {
+            background: #333;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            color: white;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #A52A2A;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: whitesmoke;
+        }
+
+        .product-rating {
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .product-category {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .footer {            
+            color: #fcfcfc;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease;
+        }
+        
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                color: #333;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-content {
+                padding: 2rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+            }
+
+            .todo-input-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">Sura Dharani</a>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#" onclick="showSection('about')">About</a></li>
+                    <li><a href="#" onclick="showSection('projects')">Tasks</a></li>
+                    <li><a href="#" onclick="showSection('todo')">GoalTrack</a></li>
+                    <li><a href="#" onclick="showSection('products')">CatalogView</a></li>
+                    <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+                <button class="mobile-menu" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="active">
+        <div class="container">
+            <div class="hero">
+                <h1>Hello, I'm Sura Dharani</h1>
+                <p>Full Stack Developer & UI/UX Designer</p>
+                <button class="btn" onclick="showSection('projects')">View My Work</button>
+            </div>
+            
+            <div class="section-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">About Me</h2>
+                <p style="color: white; font-size: 1.1rem; text-align: center; margin-bottom: 3rem;">
+                    I'm a dedicated developer with a strong background in building sleek, responsive web apps.
+                    I enjoy transforming challenging problems into clean, elegant solutions.
+                </p>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Frontend</h3>
+                        <p>HTML5, CSS3, JavaScript, React, Vue.js</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Backend</h3>
+                        <p>Node.js, Python, PHP, MySQL, MongoDB</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Design</h3>
+                        <p>Figma, Adobe XD, Photoshop, UI/UX Design</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Tools</h3>
+                        <p>Git, Docker, AWS, Firebase, Netlify</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">My Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-card img">Task_1</div>
+                        <div class="project-card-content">
+                            <h3>Web Foundations</h3>
+                            <p>Completed my first step into web development by building a basic webpage using HTML, CSS, and JavaScript.</p>
+                            <a href="https://github.com/DharaniSura/Apex_Task1" class="btn" style="margin-top: 1rem; display: inline-block; text-decoration: none;">
+                            View Project
+                            </a>                           
+                        </div>
+                    </div>                  
+                    
+                    <div class="project-card">
+                        <div class="project-card img">Task_2</div>
+                        <div class="project-card-content">
+                            <h3>Smart Forms</h3>
+                            <p>Built a responsive, interactive contact form with real-time validation, smooth styling, and JavaScript-powered user feedback.</p>
+                            <a href="https://github.com/DharaniSura/Apex_t2" class="btn" style="margin-top: 1rem; display: inline-block; text-decoration: none;">
+                            View Project
+                            </a>             
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-card img">Task_3</div>
+                        <div class="project-card-content">
+                            <h3>API Explorer</h3>
+                            <p>Created a dynamic web app that fetches real-time data from an external API using JavaScript with async/await and displays it with responsive UI and error handling.</p>
+                            <a href="https://github.com/DharaniSura/Apex_task3" class="btn" style="margin-top: 1rem; display: inline-block; text-decoration: none;">
+                            View Project
+                            </a>     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="todo">
+        <div class="container">
+            <div class="section-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Todo App with Local Storage</h2>
+                <div class="todo-container">
+                    <div class="todo-input-container">
+                        <input type="text" class="todo-input" id="todoInput" placeholder="Enter a new task...">
+                        <button class="btn" onclick="addTodo()">Add Task</button>
+                    </div>
+                    
+                    <div id="todoList"></div>
+                    
+                    <div class="todo-stats">
+                        <span id="totalTasks">Total: 0</span>
+                        <span id="completedTasks">Completed: 0</span>
+                        <span id="remainingTasks">Remaining: 0</span>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <button class="btn" onclick="clearCompleted()" style="background: #ff6b6b;">Clear Completed</button>
+                        <button class="btn" onclick="clearAll()" style="background: #666; margin-left: 1rem;">Clear All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="container">
+            <div class="section-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Product Filter & Sort</h2>
+                
+                <div class="filter-container">
+                    <select class="filter-select" id="categoryFilter" onchange="filterProducts()">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="books">Books</option>
+                        <option value="home">Home</option>
+                    </select>
+                    
+                    <select class="filter-select" id="priceFilter" onchange="filterProducts()">
+                        <option value="">All Prices</option>
+                        <option value="0-50">$0 - $50</option>
+                        <option value="50-100">$50 - $100</option>
+                        <option value="100-200">$100 - $200</option>
+                        <option value="200+">$200+</option>
+                    </select>
+                    
+                    <select class="filter-select" id="sortFilter" onchange="filterProducts()">
+                        <option value="">Sort By</option>
+                        <option value="name">Name</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                </div>
+                
+                <div class="products-grid" id="productsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Contact Me</h2>
+                <form class="contact-form" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Message Subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 3rem; color: white;">
+                    <p>📧 suradharani24@gmail.com</p>
+                    <p>📱 +91 93927 48480</p>
+                    <p>🌐 
+                    <a href="https://www.linkedin.com/in/dharani-sura-41762034b" target="_blank" style="color: white; text-decoration: underline;">
+                        linkedin.com/in/dharani-sura-41762034b
+                    </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Sura Dharani. All rights reserved.</p>
+        </div>
+    </footer>
+    </section>
+
+    <script>
+        // Navigation functionality
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Close mobile menu
+            document.getElementById('nav-links').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('nav-links').classList.toggle('active');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Todo App functionality
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+        function saveTodos() {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                const todo = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false,
+                    createdAt: new Date().toLocaleDateString()
+                };
+                
+                todos.push(todo);
+                saveTodos();
+                renderTodos();
+                input.value = '';
+            }
+        }
+
+        function toggleTodo(id) {
+            todos = todos.map(todo => 
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            );
+            saveTodos();
+            renderTodos();
+        }
+
+        function deleteTodo(id) {
+            todos = todos.filter(todo => todo.id !== id);
+            saveTodos();
+            renderTodos();
+        }
+
+        function clearCompleted() {
+            todos = todos.filter(todo => !todo.completed);
+            saveTodos();
+            renderTodos();
+        }
+
+        function clearAll() {
+            todos = [];
+            saveTodos();
+            renderTodos();
+        }
+
+        function renderTodos() {
+            const todoList = document.getElementById('todoList');
+            todoList.innerHTML = '';
+            
+            todos.forEach(todo => {
+                const todoItem = document.createElement('div');
+                todoItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+                todoItem.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} 
+                        onchange="toggleTodo(${todo.id})">
+                    <span class="todo-text">${todo.text}</span>
+                    <small style="opacity: 0.7;">${todo.createdAt}</small>
+                    <button class="todo-delete" onclick="deleteTodo(${todo.id})">Delete</button>
+                `;
+                todoList.appendChild(todoItem);
+            });
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            const total = todos.length;
+            const completed = todos.filter(todo => todo.completed).length;
+            const remaining = total - completed;
+            
+            document.getElementById('totalTasks').textContent = `Total: ${total}`;
+            document.getElementById('completedTasks').textContent = `Completed: ${completed}`;
+            document.getElementById('remainingTasks').textContent = `Remaining: ${remaining}`;
+        }
+
+        // Add todo on Enter key
+        document.getElementById('todoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTodo();
+            }
+        });
+
+        // Product filtering functionality
+        const products = [
+            { id: 1, name: "Wireless Headphones", price: 99, category: "electronics", rating: 4.5 },
+            { id: 2, name: "Cotton T-Shirt", price: 25, category: "clothing", rating: 4.2 },
+            { id: 3, name: "JavaScript Guide", price: 35, category: "books", rating: 4.8 },
+            { id: 4, name: "Coffee Maker", price: 120, category: "home", rating: 4.3 },
+            { id: 5, name: "Smartphone", price: 299, category: "electronics", rating: 4.6 },
+            { id: 6, name: "Jeans", price: 65, category: "clothing", rating: 4.1 },
+            { id: 7, name: "Python Cookbook", price: 45, category: "books", rating: 4.7 },
+            { id: 8, name: "Desk Lamp", price: 80, category: "home", rating: 4.4 },
+            { id: 9, name: "Bluetooth Speaker", price: 150, category: "electronics", rating: 4.5 },
+            { id: 10, name: "Hoodie", price: 40, category: "clothing", rating: 4.0 },
+            { id: 11, name: "React Manual", price: 55, category: "books", rating: 4.9 },
+            { id: 12, name: "Kitchen Scale", price: 35, category: "home", rating: 4.2 }
+        ];
+
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            productsToRender.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">${product.name}</div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">$${product.price}</p>
+                        <p class="product-rating">${'★'.repeat(Math.floor(product.rating))} (${product.rating})</p>
+                        <span class="product-category">${product.category}</span>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        function filterProducts() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+            
+            let filteredProducts = [...products];
+            
+            // Filter by category
+            if (categoryFilter) {
+                filteredProducts = filteredProducts.filter(product => product.category === categoryFilter);
+            }
+            
+            // Filter by price
+            if (priceFilter) {
+                const [min, max] = priceFilter.split('-').map(p => p.replace('+', ''));
+                filteredProducts = filteredProducts.filter(product => {
+                    if (priceFilter === '200+') {
+                        return product.price >= 200;
+                    } else {
+                        return product.price >= parseInt(min) && product.price <= parseInt(max);
+                    }
+                });
+            }
+            
+            // Sort products
+            if (sortFilter) {
+                switch (sortFilter) {
+                    case 'name':
+                        filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                        break;
+                    case 'price-low':
+                        filteredProducts.sort((a, b) => a.price - b.price);
+                        break;
+                    case 'price-high':
+                        filteredProducts.sort((a, b) => b.price - a.price);
+                        break;
+                    case 'rating':
+                        filteredProducts.sort((a, b) => b.rating - a.rating);
+                        break;
+                }
+            }
+            
+            renderProducts(filteredProducts);
+        }
+
+        // Contact form functionality
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Simulate form submission
+            alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon.`);
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTodos();
+            renderProducts(products);
+        });
+    </script>
+</body>
+</html>
