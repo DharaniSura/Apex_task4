@@ -72,7 +72,7 @@ This task helped me sharpen my frontend skills and understand the workflow of re
 ## 🔗 Connect with Me
 
 - 💼 [LinkedIn](linkedin.com/in/dharani-sura-41762034b)
-- 📬 Email: your.email@example.com
+- 📬 Email: suradharani24@gmail.com
 
 ---
 
